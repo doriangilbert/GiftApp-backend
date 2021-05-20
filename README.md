@@ -12,7 +12,7 @@ composer install
 composer update
 ```
 
-Puis mettre a jour les informations de connexion à la base de données :  
+Puis mettre a jour votre base de données :  
 * Commencer par remplacer dans le fichier .env vos informations à propos de la connexion vers la base de données que vous utilisé (mysql avec XAMPP par exemple) : 
 (Suivre l'exemple en dessous)
 ```env
