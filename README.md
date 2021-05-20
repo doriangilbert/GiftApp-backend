@@ -19,9 +19,10 @@ Start by remplacing in file .env your information about the connection to the da
 ```env
 DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
 ```
-Than you need to migrate the changes :
+Than you need to create the database and migrate the changes :
 ```bash
-php bin/console make:migration
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
 ```
 
 ## How to start
@@ -29,4 +30,7 @@ php bin/console make:migration
 symfony serve
 ```
 
-
+## Load fixtures (fake data)
+```bash
+php bin/console doctrine:fixtures:load
+```
