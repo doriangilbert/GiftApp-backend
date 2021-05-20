@@ -6,9 +6,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Utilisateur;
 
-/**
- * @var \Fixture 
- */
 class UtilisateurFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
