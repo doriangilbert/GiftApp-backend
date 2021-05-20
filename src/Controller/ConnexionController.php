@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateur;
 use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +15,13 @@ class ConnexionController extends AbstractController
      */
     public function connexion(UtilisateurRepository $ur, Request $request)
     {
+        if ($request->getContent() == null) {
+            return $this->json([
+                'status' => 400,
+                'message' => "Json not found"
+            ], 400);
+        }
+
         $user = json_decode($request->getContent());
 
         $post = $ur->findOneBy(array("mail" => $user->mail, "mdp" => $user->mdp));
