@@ -1,11 +1,10 @@
 # backend
 
-## How to install
+## Comment installer 
+Installer Composer : https://getcomposer.org/download/  
+Installer Symfony : https://symfony.com/download  
 
-Install Composer : https://getcomposer.org/download/  
-Install Symfony : https://symfony.com/download  
-
-Clone the repository and install the dependencies :  
+Cloner la repository et installer les dépendances :  
 ```bash
 git clone https://github.com/ProjectGiftApp/backend
 cd backend
@@ -13,24 +12,24 @@ composer install
 composer update
 ```
 
-Then create / update your database :  
-Start by remplacing in file .env your information about the connection to the database you are using : 
-(follow the template bellow)
+Puis mettre a jour les informations de connexion à la base de données :  
+* Commencer par remplacer dans le fichier .env vos informations à propos de la connexion vers la base de données que vous utilisé (mysql avec XAMPP par exemple) : 
+(Suivre l'exemple en dessous)
 ```env
 DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name"
 ```
-Than you need to create the database and migrate the changes :
+* Enfin on a besoin de créer la base de données et migrer les changements :
 ```bash
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
-## How to start
+## Comment lancer le serveur
 ```bash
 symfony serve
 ```
 
-## Load fixtures (fake data)
+## Implémenter dans la base de données les fixtures (faux jeu de données)
 ```bash
 php bin/console doctrine:fixtures:load
 ```
