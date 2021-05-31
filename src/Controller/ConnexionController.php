@@ -11,7 +11,8 @@ class ConnexionController extends AbstractController
 {
 
     /**
-     * @Route("/api/connexion/", name="connexion", methods={"GET"})
+     * add @ to work
+     * Route("/api/connexion/", name="connexion", methods={"GET"})
      */
     public function connexion(UtilisateurRepository $ur, Request $request)
     {
