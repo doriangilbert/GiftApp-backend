@@ -1,6 +1,7 @@
 # backend
 
 ## Comment installer 
+Utiliser php 8 ou supérieur
 Installer Composer : https://getcomposer.org/download/  
 Installer Symfony : https://symfony.com/download  
 
@@ -27,9 +28,4 @@ php bin/console doctrine:migrations:migrate
 ## Comment lancer le serveur
 ```bash
 symfony serve
-```
-
-## Implémenter dans la base de données les fixtures (faux jeu de données)
-```bash
-php bin/console doctrine:fixtures:load
 ```
