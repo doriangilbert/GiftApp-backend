@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CadeauRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -48,6 +50,26 @@ class Cadeau
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lienSiteWeb;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=utilisateur::class, inversedBy="demande")
+     */
+    private $demandeur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=utilisateur::class)
+     */
+    private $acheteur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Liste::class, mappedBy="comprend")
+     */
+    private $estCompris;
+
+    public function __construct()
+    {
+        $this->estCompris = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +144,57 @@ class Cadeau
     public function setLienSiteWeb(?string $lienSiteWeb): self
     {
         $this->lienSiteWeb = $lienSiteWeb;
+
+        return $this;
+    }
+
+    public function getDemandeur(): ?utilisateur
+    {
+        return $this->demandeur;
+    }
+
+    public function setDemandeur(?utilisateur $demandeur): self
+    {
+        $this->demandeur = $demandeur;
+
+        return $this;
+    }
+
+    public function getAcheteur(): ?utilisateur
+    {
+        return $this->acheteur;
+    }
+
+    public function setAcheteur(?utilisateur $acheteur): self
+    {
+        $this->acheteur = $acheteur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Liste[]
+     */
+    public function getEstCompris(): Collection
+    {
+        return $this->estCompris;
+    }
+
+    public function addEstCompri(Liste $estCompri): self
+    {
+        if (!$this->estCompris->contains($estCompri)) {
+            $this->estCompris[] = $estCompri;
+            $estCompri->addComprend($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstCompri(Liste $estCompri): self
+    {
+        if ($this->estCompris->removeElement($estCompri)) {
+            $estCompri->removeComprend($this);
+        }
 
         return $this;
     }
