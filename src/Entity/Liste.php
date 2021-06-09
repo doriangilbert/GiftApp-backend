@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Cadeau;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ListeRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ListeRepository::class)
@@ -27,12 +29,12 @@ class Liste
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=cadeau::class, inversedBy="estCompris")
+     * @ORM\ManyToMany(targetEntity=Cadeau::class, inversedBy="estCompris")
      */
     private $comprend;
 
     /**
-     * @ORM\ManyToOne(targetEntity=utilisateur::class, inversedBy="concerne")
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="concerne")
      */
     private $concerne;
 
@@ -65,14 +67,14 @@ class Liste
     }
 
     /**
-     * @return Collection|cadeau[]
+     * @return Collection|Cadeau[]
      */
     public function getComprend(): Collection
     {
         return $this->comprend;
     }
 
-    public function addComprend(cadeau $comprend): self
+    public function addComprend(Cadeau $comprend): self
     {
         if (!$this->comprend->contains($comprend)) {
             $this->comprend[] = $comprend;
@@ -81,19 +83,19 @@ class Liste
         return $this;
     }
 
-    public function removeComprend(cadeau $comprend): self
+    public function removeComprend(Cadeau $comprend): self
     {
         $this->comprend->removeElement($comprend);
 
         return $this;
     }
 
-    public function getConcerne(): ?utilisateur
+    public function getConcerne(): ?Utilisateur
     {
         return $this->concerne;
     }
 
-    public function setConcerne(?utilisateur $concerne): self
+    public function setConcerne(?Utilisateur $concerne): self
     {
         $this->concerne = $concerne;
 

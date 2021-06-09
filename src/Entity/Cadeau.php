@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Liste;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CadeauRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CadeauRepository::class)
@@ -52,12 +54,12 @@ class Cadeau
     private $lienSiteWeb;
 
     /**
-     * @ORM\ManyToOne(targetEntity=utilisateur::class, inversedBy="demande")
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="demande")
      */
     private $demandeur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=utilisateur::class)
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class)
      */
     private $acheteur;
 
@@ -148,24 +150,24 @@ class Cadeau
         return $this;
     }
 
-    public function getDemandeur(): ?utilisateur
+    public function getDemandeur(): ?Utilisateur
     {
         return $this->demandeur;
     }
 
-    public function setDemandeur(?utilisateur $demandeur): self
+    public function setDemandeur(?Utilisateur $demandeur): self
     {
         $this->demandeur = $demandeur;
 
         return $this;
     }
 
-    public function getAcheteur(): ?utilisateur
+    public function getAcheteur(): ?Utilisateur
     {
         return $this->acheteur;
     }
 
-    public function setAcheteur(?utilisateur $acheteur): self
+    public function setAcheteur(?Utilisateur $acheteur): self
     {
         $this->acheteur = $acheteur;
 

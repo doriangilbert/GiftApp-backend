@@ -25,6 +25,11 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 
+## Generer la clef public et private
+```bash
+php bin/console lexik:jwt:generate-key
+```
+
 ## Comment lancer le serveur
 ```bash
 symfony serve

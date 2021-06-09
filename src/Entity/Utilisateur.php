@@ -2,19 +2,23 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Liste;
+use App\Entity\Cadeau;
+use App\Entity\Groupe;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  */
 #[ApiResource()]
-class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
     /**
      * @ORM\Id
@@ -299,5 +303,23 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string {
+        return $this->email;
+    }
+
+    public static function createFromPayload($id, array $payload) {
+
+        $user = new Utilisateur();
+        $user->setEmail($id); 
+        return $user;
     }
 }

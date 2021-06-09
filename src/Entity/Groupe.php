@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Liste;
+use App\Entity\Utilisateur;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
@@ -37,12 +39,12 @@ class Groupe
     private $partage;
 
     /**
-     * @ORM\ManyToOne(targetEntity=utilisateur::class, inversedBy="possede")
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="possede")
      */
     private $possede;
 
     /**
-     * @ORM\ManyToMany(targetEntity=utilisateur::class, inversedBy="appartient")
+     * @ORM\ManyToMany(targetEntity=Utilisateur::class, inversedBy="appartient")
      */
     private $appartient;
 
@@ -110,12 +112,12 @@ class Groupe
         return $this;
     }
 
-    public function getPossede(): ?utilisateur
+    public function getPossede(): ?Utilisateur
     {
         return $this->possede;
     }
 
-    public function setPossede(?utilisateur $possede): self
+    public function setPossede(?Utilisateur $possede): self
     {
         $this->possede = $possede;
 
@@ -123,14 +125,14 @@ class Groupe
     }
 
     /**
-     * @return Collection|utilisateur[]
+     * @return Collection|Utilisateur[]
      */
     public function getAppartient(): Collection
     {
         return $this->appartient;
     }
 
-    public function addAppartient(utilisateur $appartient): self
+    public function addAppartient(Utilisateur $appartient): self
     {
         if (!$this->appartient->contains($appartient)) {
             $this->appartient[] = $appartient;
@@ -139,7 +141,7 @@ class Groupe
         return $this;
     }
 
-    public function removeAppartient(utilisateur $appartient): self
+    public function removeAppartient(Utilisateur $appartient): self
     {
         $this->appartient->removeElement($appartient);
 
