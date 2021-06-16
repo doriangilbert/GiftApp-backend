@@ -1,7 +1,7 @@
 #Backend
 
 ## Comment installer 
-Utiliser php 8 ou supérieur
+Utiliser php 8 ou supérieur  
 Installer Composer : https://getcomposer.org/download/  
 Installer Symfony : https://symfony.com/download  
 
@@ -36,15 +36,15 @@ symfony serve
 ```
 
 ## Liste les truc fait
-Intaller api platform
-Créer entité User
-Chiffrer les mot de passes
-JWT Token generer
-JWT Token Authentication pour recup les données
+Intaller api platform  
+Créer entité User  
+Chiffrer les mot de passes  
+JWT Token generer  
+JWT Token Authentication pour recup les données  
 
 ## TODO
-finir la base de données (repport du MCD)
-Email verification
+finir la base de données (repport du MCD)  
+Email verification  
 
 # WIP (Ne pas le faire) ------------------------------------
 
