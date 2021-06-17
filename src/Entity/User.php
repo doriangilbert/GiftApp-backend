@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -61,6 +63,42 @@ class User implements UserInterface
      * @SerializedName("password")
      */
     private $plainPassword;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Gift::class, mappedBy="wishedBy")
+     */
+    private $wish;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Gift::class, mappedBy="offeredBy")
+     */
+    private $offer;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Group::class, mappedBy="owneredBy")
+     */
+    private $own;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="has")
+     */
+    private $belongsTo;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="friends")
+     */
+    private $friend;
+
+    public function __construct()
+    {
+        $this->wish = new ArrayCollection();
+        $this->offer = new ArrayCollection();
+        $this->own = new ArrayCollection();
+        $this->belongsTo = new ArrayCollection();
+        $this->invitedTo = new ArrayCollection();
+        $this->friend = new ArrayCollection();
+        $this->friends = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -181,6 +219,144 @@ class User implements UserInterface
     public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gift[]
+     */
+    public function getWish(): Collection
+    {
+        return $this->wish;
+    }
+
+    public function addWish(Gift $wish): self
+    {
+        if (!$this->wish->contains($wish)) {
+            $this->wish[] = $wish;
+            $wish->setWishedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWish(Gift $wish): self
+    {
+        if ($this->wish->removeElement($wish)) {
+            // set the owning side to null (unless already changed)
+            if ($wish->getWishedBy() === $this) {
+                $wish->setWishedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gift[]
+     */
+    public function getOffer(): Collection
+    {
+        return $this->offer;
+    }
+
+    public function addOffer(Gift $offer): self
+    {
+        if (!$this->offer->contains($offer)) {
+            $this->offer[] = $offer;
+            $offer->setOfferedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Gift $offer): self
+    {
+        if ($this->offer->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getOfferedBy() === $this) {
+                $offer->setOfferedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getOwn(): Collection
+    {
+        return $this->own;
+    }
+
+    public function addOwn(Group $own): self
+    {
+        if (!$this->own->contains($own)) {
+            $this->own[] = $own;
+            $own->setOwneredBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwn(Group $own): self
+    {
+        if ($this->own->removeElement($own)) {
+            // set the owning side to null (unless already changed)
+            if ($own->getOwneredBy() === $this) {
+                $own->setOwneredBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getBelongsTo(): Collection
+    {
+        return $this->belongsTo;
+    }
+
+    public function addBelongsTo(Group $belongsTo): self
+    {
+        if (!$this->belongsTo->contains($belongsTo)) {
+            $this->belongsTo[] = $belongsTo;
+        }
+
+        return $this;
+    }
+
+    public function removeBelongsTo(Group $belongsTo): self
+    {
+        $this->belongsTo->removeElement($belongsTo);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getFriend(): Collection
+    {
+        return $this->friend;
+    }
+
+    public function addFriend(self $friend): self
+    {
+        if (!$this->friend->contains($friend)) {
+            $this->friend[] = $friend;
+        }
+
+        return $this;
+    }
+
+    public function removeFriend(self $friend): self
+    {
+        $this->friend->removeElement($friend);
 
         return $this;
     }
