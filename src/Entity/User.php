@@ -18,6 +18,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *  denormalizationContext={"groups"={"user:write"}}
  *)
  */
+
+ ///Write : email, firstName, lastName, password
 class User implements UserInterface
 {
     /**
