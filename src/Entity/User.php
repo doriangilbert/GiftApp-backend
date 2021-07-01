@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *)
  */
 
- ///Write : email, firstName, lastName, password
+///Write : email, firstName, lastName, password
 class User implements UserInterface
 {
     /**
@@ -68,26 +68,31 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Gift::class, mappedBy="wishedBy")
+     * @Groups({"user:read"})
      */
     private $wish;
 
     /**
      * @ORM\OneToMany(targetEntity=Gift::class, mappedBy="offeredBy")
+     * @Groups({"user:read"})
      */
     private $offer;
 
     /**
      * @ORM\OneToMany(targetEntity=Group::class, mappedBy="owneredBy")
+     * @Groups({"user:read"})
      */
     private $own;
 
     /**
      * @ORM\ManyToMany(targetEntity=Group::class, inversedBy="has")
+     * @Groups({"user:read"})
      */
     private $belongsTo;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="friends")
+     * @Groups({"user:read"})
      */
     private $friend;
 
